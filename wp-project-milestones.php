@@ -14,6 +14,17 @@
 require_once( 'classes/wp_project_milestones_activation.class.php' );
 
 class WP_Project_Milestones{
+    
+    private static $instance;
+    
+    public static function get_instance()
+    {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+ 
+        return self::$instance;
+    }
 
     function __construct(){
 
@@ -27,3 +38,5 @@ class WP_Project_Milestones{
 
     }
 }
+
+$wppm_instance = WP_Project_Milestones::get_instance();

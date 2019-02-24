@@ -32,21 +32,21 @@ class WP_Project_Milestones_Activation{
 
         $sql[] = "CREATE TABLE `$projects_table` (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `title` TEXT NOT NULL AUTO_INCREMENT,
-            `name` TEXT NOT NULL AUTO_INCREMENT UNIQUE,
-            `assigned_to` INT NOT NULL AUTO_INCREMENT,
-            `status` INT NOT NULL AUTO_INCREMENT,
+            `title` TEXT NOT NULL,
+            `name` TEXT NOT NULL,
+            `assigned_to` INT NOT NULL,
+            `status` INT NOT NULL,
             PRIMARY KEY (`id`)
         ) $charset_collate;";
 
         $sql[] = "CREATE TABLE `$project_statuses_table` (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `title` TEXT NOT NULL AUTO_INCREMENT,
+            `title` TEXT NOT NULL,
             PRIMARY KEY (`id`)
         );";
 
         $sql[] = "CREATE TABLE `$milestones_table` (
-            `id` INT NOT NULL,
+            `id` INT NOT NULL AUTO_INCREMENT,
             `project_id` INT NOT NULL,
             `status` INT NOT NULL,
             `title` TEXT NOT NULL,
@@ -62,13 +62,13 @@ class WP_Project_Milestones_Activation{
 
         $sql[] = "CREATE TABLE `$milestone_statuses_table` (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `title` TEXT NOT NULL AUTO_INCREMENT,
+            `title` TEXT NOT NULL,
             PRIMARY KEY (`id`)
         );";
 
         $sql[] = "CREATE TABLE `$milestone_items_table` (
             `id` INT NOT NULL AUTO_INCREMENT,
-            `milestone_id` INT NOT NULL AUTO_INCREMENT,
+            `milestone_id` INT NOT NULL,
             `title` TEXT NOT NULL,
             `date` DATE NOT NULL,
             `note` TEXT NOT NULL,
@@ -78,10 +78,11 @@ class WP_Project_Milestones_Activation{
         );";
 
         $sql[] = "CREATE TABLE `$project_meta_table` (
-            `id` INT NOT NULL,
+            `id` INT NOT NULL AUTO_INCREMENT,
             `name` TEXT NOT NULL,
             `value` TEXT NOT NULL,
-            `created` DATE NOT NULL
+            `created` DATE NOT NULL,
+            PRIMARY KEY (`id`)
         );";
 
         $sql[] = "ALTER TABLE `$projects_table` ADD CONSTRAINT `Projects_fk0` FOREIGN KEY (`assigned_to`) REFERENCES `$users_table`(`id`);";
