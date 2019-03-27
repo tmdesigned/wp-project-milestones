@@ -11,31 +11,59 @@
  * Text Domain: wppm
  */
 
-require_once( 'classes/wp_project_milestones_activation.class.php' );
+//Autoload classes
+spl_autoload_register( 'wppm_autoloader' );
+function wppm_autoloader( $class_name ) {
+    if ( false !== strpos( $class_name, 'WPPM' ) ) {
+        $classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
+        $file_name = 'class-' . strtolower( str_replace( '_' , '-', $class_name ) ) . '.php';
+        require_once $classes_dir . $file_name;
+    }
+}
 
 class WP_Project_Milestones{
     
     private static $instance;
+
+    protected $WPPM_DB;
+    
     
     public static function get_instance()
     {
         if (null === self::$instance) {
             self::$instance = new self();
         }
- 
+
         return self::$instance;
     }
 
-    function __construct(){
+
+    private function __construct(){
 
         register_activation_hook( __FILE__, array( $this, 'plugin_activation' ) );
 
+        $this->WPPM_DB = new WPPM_Database;
+
     }
 
-    function plugin_activation(){
 
-        WP_Project_Milestones_Activation::activate();
+    public function plugin_activation(){
 
+        $this->WPPM_DB->create_tables();
+
+    }
+
+
+    public function test_data(){
+        
+        $test_project = array(
+			'title'       => 'test project',
+			'name'        => 'test-project',
+			'assigned_to' => 1,
+			'status'      => 1
+        );
+
+        $this->WPPM_DB->add_project( $test_project );
     }
 }
 
