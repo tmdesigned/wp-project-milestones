@@ -1,1 +1,1 @@
-# wp-project-milestones
+# WP Project Milestones
