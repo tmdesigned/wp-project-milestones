@@ -36,4 +36,23 @@ class WPPM_Database{
         $this->milestone_statuses_db->create_table();
 
     }
+
+
+    /**
+     * add project status
+     * 
+     * @access  public
+	 * @since   .1
+	 * @return  ID if success, false if already exists or fail
+     */
+    public function add_project_status( WPPM_Project_Status $status ){
+        
+        $already = $this->project_statuses_db->get_by( 'title', $status->title );
+        if ( $already ){
+            return false;
+        }
+
+        return $this->project_statuses_db->insert( (array) $status, 'project_status' );
+        
+    }
 }

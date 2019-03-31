@@ -86,10 +86,10 @@ abstract class WPPM_DB {
 	 * @since   .1
 	 * @return  object
 	 */
-	public function get_by( $column, $row_id ) {
+	public function get_by( $column, $value ) {
 		global $wpdb;
 		$column = esc_sql( $column );
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $this->table_name WHERE $column = %s LIMIT 1;", $row_id ) );
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $this->table_name WHERE $column = %s LIMIT 1;", $value ) );
 	}
 
 	/**

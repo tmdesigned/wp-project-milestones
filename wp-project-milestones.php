@@ -54,17 +54,11 @@ class WP_Project_Milestones{
     }
 
 
-    public function test_data(){
-        
-        $test_project = array(
-			'title'       => 'test project',
-			'name'        => 'test-project',
-			'assigned_to' => 1,
-			'status'      => 1
-        );
-
-        $this->WPPM_DB->add_project( $test_project );
+    public function return_hello(){
+        return 'hello';
     }
+
+    
 }
 
 $wppm_instance = WP_Project_Milestones::get_instance();
