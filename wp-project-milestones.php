@@ -25,7 +25,7 @@ class WP_Project_Milestones{
     
     private static $instance;
 
-    protected $WPPM_DB;
+    public $db;
     
     
     public static function get_instance()
@@ -42,23 +42,20 @@ class WP_Project_Milestones{
 
         register_activation_hook( __FILE__, array( $this, 'plugin_activation' ) );
 
-        $this->WPPM_DB = new WPPM_Database;
+        $this->db = new WPPM_Database;
 
     }
 
 
     public function plugin_activation(){
 
-        $this->WPPM_DB->create_tables();
+        $this->db->create_tables();
 
     }
 
 
-    public function return_hello(){
-        return 'hello';
-    }
 
-    
+
 }
 
 $wppm_instance = WP_Project_Milestones::get_instance();
